@@ -1,0 +1,72 @@
+{% extends 'drophutApp/base.html'%}
+
+{% load static %}
+{% block content %}
+
+<!-- Breadcrumbs Area Start -->
+<div class="breadcrumbs_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li>Register</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs Area End -->
+    
+<!-- Account Section Start -->
+<section class="account">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="account-contents" style="background: url('{% static "drophutApp/img/about/about1.jpg" %}'); background-size: cover;">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                            <div class="account-thumb">
+                                <h2>Register Now</h2>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consectetur similique deleniti pariatur enim cumque eum</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                            <div class="account-content">
+                                <form method="post" action="{% url 'register' %}">
+                                    {% csrf_token %}
+                                    <div class="single-acc-field">
+                                        {{ form.username.label_tag }}
+                                        {{ form.username }}
+                                    </div>
+                                    <div class="single-acc-field">
+                                        {{ form.email.label_tag }}
+                                        {{ form.email }}
+                                    </div>
+                                    <div class="single-acc-field">
+                                        {{ form.password1.label_tag }}
+                                        {{ form.password1 }}
+                                    </div>
+                                    <div class="single-acc-field">
+                                        {{ form.password2.label_tag }}
+                                        {{ form.password2 }}
+                                    </div>
+                                    <div class="single-acc-field">
+                                        <button type="submit">Register Now</button>
+                                    </div>
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</section>
+<!-- Account Section End -->
+            
+
+{% endblock %}

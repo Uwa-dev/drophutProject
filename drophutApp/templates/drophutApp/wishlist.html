@@ -1,0 +1,56 @@
+{% extends 'drophutApp/base.html'%}
+{% load static %}
+{% block content %}
+
+<!-- Wishlist Page Section -->
+<div class="Wishlist_section mt-60">
+  <div class="container">
+    <div class="row">
+      <div class="table_desc">
+        <div class="cart_page table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th class="product_thumb">Remove</th>
+                <th class="product_thumb">Image</th>
+                <th class="product_name">Product</th>
+                <th class="product-price">Price</th>
+                <th class="product_stock_status">Stock Status</th>
+                <th class="product_add_to_cart">Add to Cart</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for item in wishlist_items %}
+              <tr>
+                <td class="product_remove">
+                  <a href="#">Remove</a>
+                </td>
+                <td class="product_thumb">
+                  <img src="{{ item.product.image.url }}" alt="">
+                </td>
+                <td class="product_name">
+                  <a href="{% url 'product_detail' product_id %}">{{ item.product.name }}</a>
+                </td>
+                <td class="product-price">${{ item.product.price }}</td>
+                <td class="product_stock_status">
+                  {% if item.product.stock > 0 %}
+                  In Stock
+                  {% else %}
+                  Out of Stock
+                  {% endif %}
+                </td>
+                <td class="product_add_to_cart">
+                  <!-- add to cart url -->
+                  <a href="#">Add to Cart</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Wishlist Page Section End -->
+{% endblock %}

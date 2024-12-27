@@ -1,0 +1,109 @@
+{% extends 'drophutApp/base.html'%}
+{% load static %}
+{% block content %}
+
+<!--breadcrumbs area start-->
+ <div class="breadcrumbs_area">
+  <div class="container">   
+      <div class="row">
+          <div class="col-12">
+              <div class="breadcrumb_content">
+                  <ul>
+                      <li><a href="{% url 'index'%}">home</a></li>
+                      <li>Cart</li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </div>         
+</div>
+<!--breadcrumbs area end-->
+
+<!-- shopping cart area start --> 
+<div class="shopping_cart_area mt-60"> 
+    <div class="container"> 
+        <form method="post" action="{% url 'update_cart' %}"> 
+            {% csrf_token %} 
+            <div class="row"> 
+                <div class="col-12"> 
+                    <div class="table_desc"> 
+                        <div class="cart_page table-responsive"> 
+                            <table id="cart-table"> 
+                                <thead> 
+                                    <tr> 
+                                        <th class="product_thumb">Image</th> 
+                                        <th class="product_name">Product</th> 
+                                        <th class="product-price">Price</th> 
+                                        <th class="product_quantity">Quantity</th> 
+                                        <th class="product_total">Total</th> 
+                                        <th class="product_remove">Remove</th> 
+                                    </tr> 
+                                </thead> 
+                                <tbody id="cart-body"> 
+                                    {% for item in cart_items %} 
+                                    <tr> 
+                                        <td class="product_thumb"><img src="{{ item.image.url }}" alt=""></td> 
+                                        <td class="product_name">{{ item.name }}</td> 
+                                        <td class="product-price">${{ item.price }}</td> 
+                                        <td class="product_quantity"><input type="number" name="quantity_{{ (link unavailable) }}" value="{{ item.quantity }}" min="1" max="100"></td> 
+                                        <td class="product_total">${{ item.total }}</td> 
+                                        <td class="product_remove"><a href="{% url 'remove_from_cart' product_id %}">Remove</a></td> 
+                                    </tr> 
+                                    {% endfor %} 
+                                </tbody> 
+                            </table> 
+                        </div> 
+                        <div class="cart_submit"> 
+                            <button type="submit">Update Cart</button> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div> 
+        </form> 
+        <!--coupon code area start--> 
+        <div class="coupon_area"> 
+            <div class="row"> 
+                <div class="col-lg-6 col-md-6"> 
+                    <div class="coupon_code left"> 
+                        <h3>Coupon</h3> 
+                        <div class="coupon_inner"> 
+                            <p>Enter your coupon code if you have one.</p> 
+                            <form method="post" action="{% url 'apply_coupon' %}"> 
+                                {% csrf_token %} 
+                                <input placeholder="Coupon code" type="text" name="coupon_code"> 
+                                <button type="submit">Apply Coupon</button> 
+                            </form> 
+                        </div> 
+                    </div> 
+                </div> 
+                <div class="col-lg-6 col-md-6">
+                    <div class="coupon_code right">
+                        <h3>Cart Totals</h3>
+                        <div class="coupon_inner">
+                            <div class="cart_subtotal">
+                                <p>Subtotal</p>
+                                <p class="cart_amount">${{ cart_subtotal }}</p>
+                            </div>
+                            <div class="cart_subtotal ">
+                                <p>Shipping</p>
+                                <p class="cart_amount"><span>Flat Rate:</span> ${{ shipping_cost }}</p>
+                            </div>
+                            <a href="#">Calculate shipping</a>
+                            <div class="cart_subtotal">
+                                <p>Total</p>
+                                <p class="cart_amount">${{ total_cost }}</p>
+                            </div>
+                            <div class="checkout_btn">
+                                <a href="#">Proceed to Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--coupon code area end-->
+
+        </form>
+    </div>
+</div>
+<!-- shopping cart area end -->
+{% endblock %}
